@@ -1,14 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeScreen from './HomeScreen';
+import AboutMeScreen from './AboutMeScreen';
+import PortfolioScreen from './PortfolioScreen';
+import ProjectScreen from './ProjectScreen';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono';
+import * as SplashScreen from 'expo-splash-screen';
+import {useEffect} from 'react';
+
+const Stack = createNativeStackNavigator();
+SplashScreen.preventAutoHideAsync();
+
+
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+  IBMPlexMono_400Regular,
+  });
+
+    useEffect(() => {
+    if (!fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  });
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='HomeScreen'>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Home', headerShown: false}}/>
+        <Stack.Screen name="AboutMeScreen" component={AboutMeScreen} options={{title: 'About me', headerShown: false}} />
+        <Stack.Screen name="PortfolioScreen" component={PortfolioScreen} options={{title: 'Portfolio', headerShown: false}} />
+        <Stack.Screen name="ProjectScreen" component={ProjectScreen} options={{title: 'Project', headerShown: false}} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -16,5 +48,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+
+  },
+
+  text: {
+    fontFamily: "IBMPlexMono_400Regular",
   },
 });
