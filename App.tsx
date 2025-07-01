@@ -20,6 +20,10 @@ import { createClient } from "@supabase/supabase-js";
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
 
+export type RootStackParamList = {
+  ProjectScreen: { projectId: number };
+  // Dodaj i druge ekrane ako ih imaš
+};
 
 
 export default function App() {

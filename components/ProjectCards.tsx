@@ -57,10 +57,11 @@ export default function ProjectCards() {
             {projects.map((project, index) => (
                         <ProjectCard
                             key={index}
+                            id={project.id} 
                             title={project.project_name}
                             subtitle={project.summary}
                             date={project.project_date}
-                            imageURL={project.image_URL || 'https://pfkziwaltkcevveqpglb.supabase.co/storage/v1/object/sign/project.images/bin.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zYWZjZjk2OC1hOTRkLTQ2ZjktOTM2Yy1kZjBkNGMxYzZjYzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwcm9qZWN0LmltYWdlcy9iaW4ucG5nIiwiaWF0IjoxNzUxMzcxMDc4LCJleHAiOjI1Mzk3NzEwNzh9.xlKZt34vs9zwA4IeIxe5dSASYiOFYazfVh8HLtEcMnw'} // ako nema slike
+                            imageURL={project.image_URL || 'https://pfkziwaltkcevveqpglb.supabase.co/storage/v1/object/sign/project.images/bin.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zYWZjZjk2OC1hOTRkLTQ2ZjktOTM2Yy1kZjBkNGMxYzZjYzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwcm9qZWN0LmltYWdlcy9iaW4ucG5nIiwiaWF0IjoxNzUxMzcxMDc4LCJleHAiOjI1Mzk3NzEwNzh9.xlKZt34vs9zwA4IeIxe5dSASYiOFYazfVh8HLtEcMnw'}
                         />
                     ))}
             </View>
