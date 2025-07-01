@@ -8,9 +8,10 @@ import PortfolioScreen from './PortfolioScreen';
 import ProjectScreen from './ProjectScreen';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono';
+import { IBMPlexMono_400Regular, IBMPlexMono_500Medium, IBMPlexMono_100Thin } from '@expo-google-fonts/ibm-plex-mono';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from 'react';
+import { Inter_400Regular, Inter_700Bold, Inter_300Light } from '@expo-google-fonts/inter';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -20,6 +21,11 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [fontsLoaded] = useFonts({
   IBMPlexMono_400Regular,
+  IBMPlexMono_500Medium,
+  IBMPlexMono_100Thin,
+  Inter_400Regular,
+  Inter_700Bold,
+  Inter_300Light,
   });
 
     useEffect(() => {

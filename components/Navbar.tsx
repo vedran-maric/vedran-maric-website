@@ -8,7 +8,7 @@ export default function Navbar() {
 
     const navigation = useNavigation();
     const { width } = useWindowDimensions();
-    const isMobile = width < 700;
+    const isMobile = width < 800;
     const [dropMenuVisible, setDropMenuVisible] = useState(false);
     
     const dropdownAnim = useRef(new Animated.Value(0)).current;
@@ -21,6 +21,7 @@ export default function Navbar() {
         }).start();
     }, [dropMenuVisible]);
 
+    
 
     return (
     <View style={styles.navbar}>
@@ -50,7 +51,7 @@ export default function Navbar() {
                                 <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('AboutMeScreen'); setDropMenuVisible(false); }}>
                                     <Text style={styles.link}>About me</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={() => { console.log("pocinje download PDF-a"); setDropMenuVisible(false); }}>
+                                <TouchableOpacity style={styles.button} onPress={() => { Linking.openURL("https://pfkziwaltkcevveqpglb.supabase.co/storage/v1/object/public/cv//ENG%20-%20CV%20-%2024.6.2025.pdf"); setDropMenuVisible(false); }}>
                                     <Text style={styles.link}>Download CV</Text>
                                 </TouchableOpacity>
                             </View>
@@ -78,7 +79,7 @@ export default function Navbar() {
                     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AboutMeScreen')}>
                         <Text style={styles.link}>About me</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => console.log("pocinje download PDF-a")}>
+                    <TouchableOpacity style={styles.button} onPress={() => Linking.openURL("https://pfkziwaltkcevveqpglb.supabase.co/storage/v1/object/public/cv//ENG%20-%20CV%20-%2024.6.2025.pdf")}>
                         <Text style={styles.link}>Download CV</Text>
                     </TouchableOpacity>
                 </View>
