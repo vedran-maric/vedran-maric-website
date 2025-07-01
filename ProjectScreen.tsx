@@ -97,6 +97,9 @@ export default function ProjectScreen() {
                         No images available.
                         </Text>
                     )}
+                    <SectionTitle>BRIEFLY</SectionTitle>
+                    <Text style={styles.description}>{project.summary}</Text>
+                    <SectionTitle>DETAILED DESCRIPTION</SectionTitle>
                     <Text style={styles.description}>{project.description}</Text>
                 </View>
 
