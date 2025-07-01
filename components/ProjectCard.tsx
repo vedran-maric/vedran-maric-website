@@ -15,10 +15,18 @@ type ProjectCardProps={
 export default function ProjectCard({imageURL, title, subtitle, date}:ProjectCardProps) {
     const navigation = useNavigation();
 
+    const formatDate = (isoDate: string) => {
+        const dateObj = new Date(isoDate);
+        return dateObj.toLocaleDateString('en-UK', {
+            year: 'numeric',
+            month: 'short',
+        }); // npr. "Jun 2025"
+    };
+
     return(
         <View style={styles.cardHolder}>
             <Image style={styles.image} source={{uri: imageURL,}}/>
-            <Text style={styles.date}>{date}</Text>
+            <Text style={styles.date}>{formatDate(date)}</Text>
             <TouchableOpacity style={styles.titleLink} onPress={() => { navigation.navigate('ProjectScreen');}}>
                 <Text style={styles.title}>{title}</Text>
             </TouchableOpacity>

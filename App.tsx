@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
@@ -12,6 +12,10 @@ import { IBMPlexMono_400Regular, IBMPlexMono_500Medium, IBMPlexMono_100Thin } fr
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from 'react';
 import { Inter_400Regular, Inter_700Bold, Inter_300Light } from '@expo-google-fonts/inter';
+import { createClient } from "@supabase/supabase-js";
+
+
+
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
