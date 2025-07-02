@@ -1,57 +1,96 @@
-import React, {ReactNode} from "react";
-import { View, StyleSheet, Image } from "react-native";
+import React, { ReactNode, useEffect, useRef } from "react";
+import { View, StyleSheet, Animated, Dimensions, useWindowDimensions } from "react-native";
 
 type BackgroundProps = {
-    children: ReactNode;
+  children: ReactNode;
+  scrollY: Animated.Value;
 };
 
-export default function Background({children}: BackgroundProps) {
-    
-    return(
-        <View style={styles.backgroundHolder}>
-            <Image source={require("../assets/backgroundCircleFullOp.png")} style={styles.circleTopLeft} />
-            <Image source={require("../assets/backgroundCircleFullOp.png")} style={styles.circleTopRight} />
-            <Image source={require("../assets/backgroundCircleFullOp.png")} style={styles.circleBottomRight} />
+export default function Background({ children, scrollY }: BackgroundProps) {
+    const fadeAnim1 = useRef(new Animated.Value(0)).current;
+    const fadeAnim2 = useRef(new Animated.Value(0)).current;
+    const fadeAnim3 = useRef(new Animated.Value(0)).current;
+
+    const { width } = useWindowDimensions();
+    const isMobile = width < 800;
+
+    useEffect(() => {
+        Animated.stagger(300, [
+            Animated.timing(fadeAnim1, {
+                toValue: 0.25,
+                duration: 1000,
+                useNativeDriver: true,
+            }),
+            Animated.timing(fadeAnim2, {
+                toValue: 0.25,
+                duration: 1000,
+                useNativeDriver: true,
+            }),
+            Animated.timing(fadeAnim3, {
+                toValue: 0.25,
+                duration: 1000,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, []);
+
+    return (
+        <View style={isMobile ? styles.backgroundHolderMob : styles.backgroundHolder}>
+            <Animated.View style={[styles.circle, isMobile ? styles.circleTopLeftMob : styles.circleTopLeft, {opacity: fadeAnim1, transform: [{ translateY: Animated.multiply(scrollY, -0.1) }],},]}/>
+            <Animated.View style={[styles.circle, styles.circleTopRight, { opacity: fadeAnim2, transform: [{ translateY: Animated.multiply(scrollY, -0.1) }],},]}/>
+            <Animated.View style={[ styles.circle, isMobile ? styles.circleBottomRightMob : styles.circleBottomRight, { opacity: fadeAnim3, transform: [{ translateY: Animated.multiply(scrollY, -0.1) }],},]}/>
             {children}
-        </View>
-    );
+        </View>);
 }
+
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
     backgroundHolder: {
         backgroundColor: "#A69CC2",
-        height: "100%",
-        width: "100%",
         flex: 1,
+        width: "100%",
+        height: "100%",
     },
-
+    backgroundHolderMob: {
+        backgroundColor: "#A69CC2",
+        flex: 1,
+        width: "100%",
+        height: "100%",
+    },
+    circle: {
+        position: "absolute",
+        backgroundColor: "#ffffff",
+        borderRadius: 2002,
+    },
     circleTopLeft: {
-        position: "absolute",
-        opacity: 0.25,
-        left: -1200,
-        top: 860,
-        transform: [{
-            scale: 3
-        }]
+        left: -550,
+        top: -500,
+        width: 1000,
+        height: 1000,
     },
-
+    circleTopLeftMob:{
+        left: -500,
+        top: -350,
+        width: 700,
+        height: 700,
+    },
     circleTopRight: {
-        position: "absolute",
-        opacity: 0.25,
-        left: 1600,
-        top: -800,
-        transform: [{
-            scale: 2
-        }]
+        left: width - 200,
+        top: -100,
+        width: 0,
+        height: 0,
     },
     circleBottomRight: {
-        position: "absolute",
-        opacity: 0.25,
-        left: 1600,
-        top: 1800,
-        transform: [{
-            scale: 2
-        }]
+        left: width - 600,
+        top: height - 500,
+        width: 1400,
+        height: 1400,
     },
-
+    circleBottomRightMob: {
+        left: width - 400,
+        top: height - 250,
+        width: 1400,
+        height: 1400,
+    },
 });

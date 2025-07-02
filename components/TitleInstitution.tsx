@@ -19,7 +19,7 @@ export default function TitleInstitution({title, description, date}: Props){
             <Text style={styles.titleMob}>
                 {title} 
                 {"\n"}
-                <Text style={styles.institution}>
+                <Text style={styles.institutionMob}>
                     {description}
                 </Text>
             </Text>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         fontFamily: 'IBMPlexMono_400Regular',
         fontSize: 20,     
         textAlign: "center",
-        marginBottom: 30,
+        marginBottom: 20,
 
     },
     institution:{
@@ -62,5 +62,11 @@ const styles = StyleSheet.create({
         color: '#FAF0E6',
         fontFamily: 'IBMPlexMono_400Regular',
         fontSize: 20,     
+    },
+    institutionMob:{
+        fontWeight: "500",
+        color: '#FAF0E6',
+        fontFamily: 'IBMPlexMono_400Regular',
+        fontSize: 16,     
     },
 });

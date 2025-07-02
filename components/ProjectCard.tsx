@@ -18,7 +18,7 @@ export default function ProjectCard({ id, imageURL, title, subtitle, date }: Pro
 
   const formatDate = (isoDate: string) => {
     const dateObj = new Date(isoDate);
-    return dateObj.toLocaleDateString('en-UK', {
+    return dateObj.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
     });

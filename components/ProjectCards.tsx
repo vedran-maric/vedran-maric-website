@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text, useWindowDimensions } from "react-native";
 import ProjectCard from "./ProjectCard";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { supabase } from "../src/supabaseClient";
+import SectionTitle from "./SectionTitle";
 
 export default function ProjectCards() {
 
@@ -51,8 +52,12 @@ export default function ProjectCards() {
         fetchProjects(nextPage);
     };
 
+    const { width } = useWindowDimensions();
+    const isMobile = width < 800;
+
     return(
         <View>
+            <SectionTitle>PROJECTS</SectionTitle>
             <View style={styles.cardsHolder}>
             {projects.map((project, index) => (
                         <ProjectCard
@@ -88,7 +93,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginTop: 10,
     },
     moreButton:{
         color: "#5C5470",
@@ -114,6 +120,22 @@ const styles = StyleSheet.create({
     icon:{
         marginRight: 10,
         marginVertical: "auto",
+    },
+    title: {
+        color: "#5C5470",
+        fontSize: 96,
+        textAlign: "center",
+        fontFamily: 'IBMPlexMono_400Regular',
+        fontWeight: 'medium',
+        marginVertical: 50,
+    },
+    titleMob: {
+        color: "#5C5470",
+        fontSize: 60,
+        textAlign: "center",
+        fontFamily: 'IBMPlexMono_400Regular',
+        fontWeight: 'medium',
+        marginVertical: 50,
     },
 
 });

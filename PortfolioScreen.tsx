@@ -1,5 +1,5 @@
-import react from "react";
-import { View, Text, Button, StyleSheet, useWindowDimensions, ScrollView } from "react-native";
+import react, { useRef } from "react";
+import { View, Text, Button, StyleSheet, useWindowDimensions, ScrollView, Animated } from "react-native";
 import Navbar from "./components/Navbar";
 import { useNavigation } from '@react-navigation/native';
 import Background from "./components/Background";
@@ -15,19 +15,20 @@ export default function PortfolioScreen( ){
         const { width } = useWindowDimensions();
         const isMobile = width < 800;
 
+        const scrollY = useRef(new Animated.Value(0)).current;
+
 
     return(
-        <Background>
+        <Background scrollY={scrollY}>
             <Navbar  />
-            <ScrollView>
+            <Animated.ScrollView onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })} scrollEventThrottle={16}>
                 <View style={isMobile ?  (styles.aboutHolderMob) : (styles.aboutHolder)}>
                     <Text style={isMobile ?  (styles.titleMob) : (styles.title)}>Portfolio</Text>
-                    <SectionTitle>PROJECTS</SectionTitle>
                     <ProjectCards/>
               </View>
             <View style={styles.footerMargin}></View>
             <Footer/>
-            </ScrollView>
+            </Animated.ScrollView>        
 
         </Background>
     );

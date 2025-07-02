@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { 
   View, Text, StyleSheet, useWindowDimensions, Image, ScrollView, 
-  TouchableOpacity, Dimensions, 
+  TouchableOpacity, Dimensions,
+  Animated,
+  Modal, 
 } from "react-native";
 import Navbar from "./components/Navbar";
 import Background from "./components/Background";
@@ -10,67 +12,80 @@ import SectionTitle from "./components/SectionTitle";
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { supabase } from './src/supabaseClient';
 import { RootStackParamList } from "./App";
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-const screenWidth = Dimensions.get('window').width;
 
 export default function ProjectScreen() {
-  const route = useRoute<RouteProp<RootStackParamList, 'ProjectScreen'>>();
-  const { projectId } = route.params as { projectId: number };
+    const route = useRoute<RouteProp<RootStackParamList, 'ProjectScreen'>>();
+    const { projectId } = route.params as { projectId: number };
 
-  const [project, setProject] = useState<any>(null);
-  const [images, setImages] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+    const [project, setProject] = useState<any>(null);
+    const [images, setImages] = useState<string[]>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-  const { width } = useWindowDimensions();
-  const isMobile = width < 800;
+      const [modalVisible, setModalVisible] = useState(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProject = async () => {
-      const { data, error } = await supabase
-        .from('Portfolio_projects')
-        .select('*')
-        .eq('id', projectId)
-        .single();
+    const { width } = useWindowDimensions();
+    const isMobile = width < 800;
+    const scrollY = useRef(new Animated.Value(0)).current;
 
-      if (!error && data) {
-        setProject(data);
-      }
+
+    useEffect(() => {
+        const fetchProject = async () => {
+        const { data, error } = await supabase
+            .from('Portfolio_projects')
+            .select('*')
+            .eq('id', projectId)
+            .single();
+
+        if (!error && data) {
+            setProject(data);
+        }
 
       // Dohvati samo slike za ovaj projekt iz Project_Images tablice
-      const { data: imageData, error: imageError } = await supabase
-        .from('Project_Images')
-        .select('image_url')
-        .eq('project_id', projectId);
+        const { data: imageData, error: imageError } = await supabase
+            .from('Project_Images')
+            .select('image_url')
+            .eq('project_id', projectId);
 
-      if (!imageError && imageData) {
-        setImages(imageData.map(img => img.image_url));
-        setCurrentIndex(0); // reset carousel na prvu sliku kad se projekt promijeni
-      }
+        if (!imageError && imageData) {
+            setImages(imageData.map(img => img.image_url));
+            setCurrentIndex(0); // reset carousel na prvu sliku kad se projekt promijeni
+        }
     };
 
     fetchProject();
-  }, [projectId]);
+    }, [projectId]);
 
-  const goPrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    const goPrev = () => {
+        setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    };
+
+    const goNext = () => {
+        setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    };
+
+    if (!project) return <Text>Učitavanje...</Text>;
+
+  const openModal = (imageUrl: string) => {
+    setModalImage(imageUrl);
+    setModalVisible(true);
   };
 
-  const goNext = () => {
-    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  const closeModal = () => {
+    setModalVisible(false);
+    setModalImage(null);
   };
 
-  if (!project) return <Text>Učitavanje...</Text>;
 
-  return (
-    <Background>
+    return (
+    <Background scrollY={scrollY}>
         <Navbar />
         <View style={styles.flex}>
-            <ScrollView>
-
+            <Animated.ScrollView onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })} scrollEventThrottle={16}>
                 <View style={isMobile ? styles.mainHolderMob : styles.mainHolder}>
-                    <Text style={styles.title}>Project</Text>
+                    <Text style={isMobile ? styles.titleMob : styles.title}>Project</Text>
                     <SectionTitle>{project.project_name}</SectionTitle>
 
                     {images.length > 0 ? (
@@ -81,16 +96,17 @@ export default function ProjectScreen() {
                                 </Text>
                             </TouchableOpacity>
 
-                            <Image
-                                source={{ uri: images[currentIndex] }}
-                                style={styles.image}
-                            />
+                            <TouchableOpacity onPress={() => openModal(images[currentIndex])}>
+                            <Image  source={{ uri: images[currentIndex] }}
+                                    style={isMobile ? styles.imageMob : styles.image}/>
+                            </TouchableOpacity>
 
                             <TouchableOpacity onPress={goNext} style={styles.arrowButton}>
                                 <Text style={styles.arrowText}>
                                     {" >"}
                                 </Text>
                             </TouchableOpacity>
+                            
                         </View>
                     ) : (
                         <Text style={{ color: "#FAF0E6", textAlign: 'center', marginVertical: 20, fontSize: 20 }}>
@@ -105,11 +121,28 @@ export default function ProjectScreen() {
 
                 <View style={styles.footerMargin}></View>
                 <Footer />
-
-            </ScrollView>
+            </Animated.ScrollView>        
         </View>
+
+                          {/* Modal za uvećanu sliku */}
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalBackground}>
+          <TouchableOpacity style={styles.modalCloseArea} onPress={closeModal} />
+          <Image
+            source={{ uri: modalImage! }}
+            style={styles.modalImage}
+            resizeMode="contain"
+          />
+        </View>
+      </Modal>
+
     </Background>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
@@ -177,5 +210,29 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
         marginHorizontal: 10,
         backgroundColor: "#ccc",
+    },
+    imageMob: {
+        height: 250,
+        width: 280,
+        borderRadius: 10,
+        resizeMode: "contain",
+        marginHorizontal: 0,
+        backgroundColor: "#ccc",
+    },
+
+    modalBackground: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.8)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalCloseArea: {
+        position: "absolute",
+        top: 0, left: 0, right: 0, bottom: 0,
+    },
+    modalImage: {
+        width: "90%",
+        height: "70%",
+        borderRadius: 10,
     },
 });

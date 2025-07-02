@@ -1,14 +1,18 @@
 import React, { ReactNode } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, useWindowDimensions } from "react-native";
 
 type BackgroundProps = {
     children: ReactNode;
 };
 
+
 export default function SectionTitle({children}: BackgroundProps){
 
+    const { width } = useWindowDimensions();
+    const isMobile = width < 800;
+    
     return(
-        <Text style={styles.title}>
+        <Text style={isMobile ?  (styles.titleMob) : (styles.title)}>
             <Text style={styles.brackets}>
                 {"</ "}
             </Text>
@@ -27,8 +31,17 @@ const styles = StyleSheet.create({
         fontFamily: 'IBMPlexMono_400Regular',
         fontSize: 32,     
         textAlign: "center",
-        marginTop: 20,
-        marginBottom: 5,
+        marginTop: 50,
+        marginBottom: 20,
+    },
+    titleMob:{
+        fontWeight: 'bold',
+        color: '#5C5470',
+        fontFamily: 'IBMPlexMono_400Regular',
+        fontSize: 24,     
+        textAlign: "center",
+        marginTop: 40,
+        marginBottom: 10,
     },
     brackets:{
         color: "#FAF0E6",

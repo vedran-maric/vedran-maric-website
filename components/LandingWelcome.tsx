@@ -1,5 +1,5 @@
-import React from "react";
-import {View, StyleSheet, Text, useWindowDimensions} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {View, StyleSheet, Text, useWindowDimensions, Animated } from "react-native";
 
 
 
@@ -8,11 +8,53 @@ export default function LandingWelcome() {
     const { width } = useWindowDimensions();
     const isMobile = width < 800;
 
+    const fadeAnim = useRef(new Animated.Value(1)).current;
+
+    const fullText = "Greetings!";
+    const [displayedText, setDisplayedText] = useState("");
+
+    useEffect(() => {
+        let currentIndex = 0;
+        const interval = setInterval(() => {
+            const char = fullText[currentIndex];
+            if (char !== undefined) {
+                setDisplayedText((prev) => prev + char);
+                currentIndex++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 80); //brzina
+
+        return () => clearInterval(interval);
+    }, []);
+
+
+    useEffect(() => { //za slovo V
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(fadeAnim, {
+                    toValue: 0.1,
+                    duration: 800,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(fadeAnim, {
+                    toValue: 1,
+                    duration: 800,
+                    useNativeDriver: true,
+                }),
+            ])
+        ).start();
+    }, []);
+
     return(
         <View style={ isMobile ?  (styles.mainHolderMobile) : (styles.mainHolder)}>
-            <Text style={ isMobile ?  (styles.titleMob) : (styles.title)}>Greetings!</Text>
+            <Animated.Text style={isMobile ? styles.titleMob : styles.title}>{displayedText}</Animated.Text>
+
             <Text style={styles.subtitle}>I am Vedran Marić, and this is my website</Text>
-            <Text style={styles.sign}>V</Text>
+
+            <Animated.Text style={[styles.sign, { opacity: fadeAnim }]}>
+                    V
+            </Animated.Text>
         </View>
     );
 }
@@ -59,5 +101,6 @@ const styles = StyleSheet.create({
         fontWeight: 'regular',
         color: '#5C5470',
         fontFamily: 'IBMPlexMono_400Regular',  
+        marginTop: 10,
     },
 });
