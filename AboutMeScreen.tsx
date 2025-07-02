@@ -51,10 +51,11 @@ export default function AboutMeScreen(){
                     <TitleInstitution title="German" description="Goethe A2 certificate"/>
 
                     <SectionTitle>WORK EXPERIENCES</SectionTitle>
-                    <TitleInstitution title="Multimedia editor" description="Info center “MIR” Međugorje"/>
-                    <TitleInstitution title="Unreal Engine developer" description="Freelance"/>
-                    <TitleInstitution title="Graphics designer" description="University of Mostar Student Union"/>
-                    <TitleInstitution title="Professor" description="Center for Technical Culture Mostar"/>
+                    <TitleInstitution title="Multimedia editor" description="Info center “MIR” Međugorje" date="2015 - present"/>
+                    <TitleInstitution title="Unreal Engine developer" description="Freelance"  date="2023 - present"/>
+                    <TitleInstitution title="Graphics designer" description="University of Mostar Student Union" date="2023 - present"/>
+                    <TitleInstitution title="Professor" description="Center for Technical Culture Mostar" date="2019 - 2021"/>
+                    <TitleInstitution title="Content creator" description="YouTube" date="2014 - 2022"/>
 
 
                     <SectionTitle>AWARDS AND RECOGNITIONS</SectionTitle>
@@ -168,7 +169,6 @@ const styles = StyleSheet.create({
     awardRowMobile: {
         flexDirection: "column",
         alignItems: "center",
-        marginBottom: 20,
     },
 
     iconWrapper: {
@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
         height: 35,
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 5,
     },
 
     awardContent: {

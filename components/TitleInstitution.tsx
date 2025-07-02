@@ -22,6 +22,10 @@ export default function TitleInstitution({title, description, date}: Props){
                 <Text style={styles.institutionMob}>
                     {description}
                 </Text>
+                {"\n"}
+                <Text style={styles.institutionMob}>
+                    {date}
+                </Text>
             </Text>
         );
     }
@@ -35,6 +39,14 @@ export default function TitleInstitution({title, description, date}: Props){
                     {" "}
                     {description}
                 </Text>
+                {date && <Text style={styles.institution}>
+                    {" "}
+                    <Feather name="arrow-right" size={15} color="#FAF0E6" />
+                    {" "}
+                    {date}
+                </Text>
+                }
+
             </Text>);
     }
 }
@@ -54,7 +66,7 @@ const styles = StyleSheet.create({
         fontFamily: 'IBMPlexMono_400Regular',
         fontSize: 20,     
         textAlign: "center",
-        marginBottom: 20,
+        marginBottom: 10,
 
     },
     institution:{
