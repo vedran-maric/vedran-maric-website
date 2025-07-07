@@ -8,10 +8,10 @@ export default function Footer() {
     
     return(
         <View style={isMobile ?  (styles.footerHolder) : (styles.footerHolderMobile)}>
-            <Text style={styles.title}>
+            <Text style={isMobile ?  (styles.title) : (styles.titleMob)}>
                 {"</ Vedran Marić - 2025 >"}
             </Text>
-            <Text style={styles.subtitle}>
+            <Text style={isMobile ?  (styles.subtitle) : (styles.subtitleMob)}>
                 {"</ vedran.maric1@live.com >"}
             </Text>
         </View>
@@ -48,8 +48,16 @@ const styles = StyleSheet.create(
             fontFamily: 'IBMPlexMono_400Regular',
             fontSize: 25,     
             textAlign: "center",
-
         },
+
+        titleMob: {
+            fontWeight: 'regular',
+            color: '#B9B4C7',
+            fontFamily: 'IBMPlexMono_400Regular',
+            fontSize: 20,     
+            textAlign: "center",
+        },
+
 
         subtitle:{
             fontWeight: 'regular',
@@ -57,7 +65,13 @@ const styles = StyleSheet.create(
             fontFamily: 'IBMPlexMono_400Regular',
             fontSize: 15,   
             textAlign: "center",
-
+        },
+        subtitleMob:{
+            fontWeight: 'regular',
+            color: '#B9B4C7',
+            fontFamily: 'IBMPlexMono_400Regular',
+            fontSize: 13,   
+            textAlign: "center",
         },
     }
 );

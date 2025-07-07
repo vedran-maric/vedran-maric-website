@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {View, StyleSheet, Text, useWindowDimensions, Animated } from "react-native";
+import {View, StyleSheet, Text, useWindowDimensions, Animated, TouchableOpacity } from "react-native";
 
 
 
@@ -52,9 +52,10 @@ export default function LandingWelcome() {
 
             <Text style={styles.subtitle}>I am Vedran Marić, and this is my website</Text>
 
-            <Animated.Text style={[styles.sign, { opacity: fadeAnim }]}>
-                    V
-            </Animated.Text>
+                <Animated.Text style={[styles.sign, { opacity: fadeAnim }]}>
+                        V
+                </Animated.Text>
+
         </View>
     );
 }
