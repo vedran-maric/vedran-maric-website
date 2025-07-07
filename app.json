@@ -24,9 +24,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "bundler": "metro"
+      "bundler": "metro",
+      "build": {
+        "publicPath": "/vedran-maric-website/"
+      }
     },
-    
     "plugins": [
       "expo-font"
     ]
