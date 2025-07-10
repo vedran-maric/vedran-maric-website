@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet, Text, useWindowDimensions } from "react-native";
 
 export default function Footer() {
-
     const { width } = useWindowDimensions();
     const isMobile = width > 800;
     
@@ -17,7 +16,6 @@ export default function Footer() {
         </View>
     );
 }
-
 const styles = StyleSheet.create(
     {
         footerHolder: {
@@ -29,7 +27,6 @@ const styles = StyleSheet.create(
             justifyContent: "center",
             alignItems: "center",
         },
-
         footerHolderMobile: {
             width: "100%",
             height: 150,
@@ -39,9 +36,7 @@ const styles = StyleSheet.create(
             justifyContent: "center",
             alignItems: "center",
             paddingBottom: 50,
-
         },
-
         title: {
             fontWeight: 'regular',
             color: '#B9B4C7',
@@ -57,7 +52,6 @@ const styles = StyleSheet.create(
             fontSize: 20,     
             textAlign: "center",
         },
-
 
         subtitle:{
             fontWeight: 'regular',

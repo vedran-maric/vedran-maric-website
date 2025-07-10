@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import {View, StyleSheet, Text, useWindowDimensions, Animated, TouchableOpacity } from "react-native";
+import {View, StyleSheet, Text, useWindowDimensions, Animated } from "react-native";
 
 
 
 export default function LandingWelcome() {
 
+    
     const { width } = useWindowDimensions();
     const isMobile = width < 800;
 
@@ -41,6 +42,7 @@ export default function LandingWelcome() {
                     toValue: 1,
                     duration: 800,
                     useNativeDriver: true,
+
                 }),
             ])
         ).start();
@@ -55,7 +57,6 @@ export default function LandingWelcome() {
                 <Animated.Text style={[styles.sign, { opacity: fadeAnim }]}>
                         V
                 </Animated.Text>
-
         </View>
     );
 }

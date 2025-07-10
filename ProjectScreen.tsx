@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { 
-  View, Text, StyleSheet, useWindowDimensions, Image, ScrollView, 
-  TouchableOpacity, Dimensions,
+  View, Text, StyleSheet, useWindowDimensions, Image, 
+  TouchableOpacity,
   Animated,
   Modal, 
 } from "react-native";
@@ -16,15 +16,23 @@ import { RootStackParamList } from "./App";
 
 
 export default function ProjectScreen() {
+    // Koristimo useRoute za pristup parametrima rute
+    // Ova komponenta prikazuje detalje o projektu na temelju projectId proslijeđenog iz rute.
+    // useRoute nam omogućuje pristup parametrima rute u React Navigationu.
+    // RouteProp nam pomaže definirati tipove parametara rute.
     const route = useRoute<RouteProp<RootStackParamList, 'ProjectScreen'>>();
+
+    
+    // Izvlačimo projectId iz parametara rute
+    // U ovom slučaju, projectId je tipa number, pa ga pretvaramo u number
     const { projectId } = route.params as { projectId: number };
 
     const [project, setProject] = useState<any>(null);
     const [images, setImages] = useState<string[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-      const [modalVisible, setModalVisible] = useState(false);
-  const [modalImage, setModalImage] = useState<string | null>(null);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalImage, setModalImage] = useState<string | null>(null);
 
     const { width } = useWindowDimensions();
     const isMobile = width < 800;
@@ -43,7 +51,7 @@ export default function ProjectScreen() {
             setProject(data);
         }
 
-      // Dohvati samo slike za ovaj projekt iz Project_Images tablice
+        // Dohvati samo slike za ovaj projekt iz Project_Images tablice
         const { data: imageData, error: imageError } = await supabase
             .from('Project_Images')
             .select('image_url')

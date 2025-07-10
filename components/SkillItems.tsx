@@ -5,7 +5,7 @@ import SkillItem from "./SkillItem";
 import SectionTitle from "./SectionTitle";
 
 export default function SkillItems(){
-
+    
     const [skills, setSkills] = useState<Skill[]>([]);
 
     type Skill = {
@@ -14,14 +14,12 @@ export default function SkillItems(){
     };
 
     const fetchSkills = async () => {
-        const { data, error } = await supabase
-            .from('Tech_stack')
-            .select('*');
+        const { data, error } = await supabase.from('Tech_stack').select('*');
 
         if (error) {
-        console.error("Greška pri dohvaćanju skillova:", error);
+            console.error("Greška pri dohvaćanju skillova:", error);
         } else {
-        setSkills(prev => [...prev, ...data]);
+            setSkills(prev => [...prev, ...data]);
         };
     };
 
@@ -51,5 +49,4 @@ const styles = StyleSheet.create({
         gap: 10,  
         flexDirection: "row",
     },
-
 });

@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, StyleSheet, useWindowDimensions } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
 type Props = {

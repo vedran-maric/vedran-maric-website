@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default function Navbar() {
 
     const navigation = useNavigation();
+    
     const { width } = useWindowDimensions();
     const isMobile = width < 800;
     const [dropMenuVisible, setDropMenuVisible] = useState(false);

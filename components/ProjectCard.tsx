@@ -14,6 +14,15 @@ type ProjectCardProps = {
 };
 
 export default function ProjectCard({ id, imageURL, title, subtitle, date }: ProjectCardProps) {
+  // Koristimo useNavigation za navigaciju unutar aplikacije
+  // NativeStackNavigationProp nam omogućuje tipiziranje navigacije unutar stack navigatora
+  // Ovaj hook nam omogućuje navigaciju na druge ekrane unutar aplikacije
+  // U ovom slučaju, navigiramo na 'ProjectScreen' s proslijeđenim projectId
+  // Ovaj hook je dio React Navigation biblioteke i omogućuje navigaciju unutar aplikacije
+  // 'RootStackParamList' je tip koji definira sve rute u aplikaciji
+  // 'ProjectScreen' je ruta na koju navigiramo, a 'projectId' je parametar koji prosljeđujemo
+  // 'projectId' je tipa number, što znači da očekujemo da će vrijednost biti cijeli broj
+
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const formatDate = (isoDate: string) => {

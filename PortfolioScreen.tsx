@@ -1,22 +1,16 @@
-import react, { useRef } from "react";
-import { View, Text, Button, StyleSheet, useWindowDimensions, ScrollView, Animated } from "react-native";
+import React, { useRef } from "react";
+import { View, Text, StyleSheet, useWindowDimensions, Animated } from "react-native";
 import Navbar from "./components/Navbar";
 import { useNavigation } from '@react-navigation/native';
 import Background from "./components/Background";
 import Footer from "./components/Footer";
-import ProjectCard from "./components/ProjectCard";
-import SectionTitle from "./components/SectionTitle";
 import ProjectCards from "./components/ProjectCards";
-
 
 export default function PortfolioScreen( ){
         const navigation = useNavigation();
-
         const { width } = useWindowDimensions();
         const isMobile = width < 800;
-
         const scrollY = useRef(new Animated.Value(0)).current;
-
 
     return(
         <Background scrollY={scrollY}>
@@ -29,10 +23,8 @@ export default function PortfolioScreen( ){
             <View style={styles.footerMargin}></View>
             <Footer/>
             </Animated.ScrollView>        
-
         </Background>
     );
-
 }
 
 const styles = StyleSheet.create({

@@ -35,7 +35,7 @@ export default function ProjectCards() {
         } else {
         setProjects(prev => [...prev, ...data]);
 
-        // Ako je vraćeno manje od očekivanog broja (npr. manje od 6), znamo da više nema
+        // Ako je vraćeno manje od očekivanog broja (npr. manje od 6), znamo da su prikazani svi projekti
         if (data.length < pageSize) {
             setHasMore(false);
         }
