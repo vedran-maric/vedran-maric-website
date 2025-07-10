@@ -37,31 +37,31 @@ export default function Navbar() {
                         <Animated.View style={[styles.dropdown, {
                             height: dropdownAnim.interpolate({
                                 inputRange: [0, 1],
-                                outputRange: [0, 180], // visina padajućeg izbornika
+                                outputRange: [0, 250], // visina padajućeg izbornika
                                 extrapolate: 'clamp'
                             }),
                             overflow: 'hidden',
                         }]}>
                             <View style={styles.dropdown}>
                                 <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('HomeScreen'); setDropMenuVisible(false); }}>
-                                    <Text style={styles.link}>Home</Text>
+                                    <Text style={styles.linkMob}>Home</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('PortfolioScreen'); setDropMenuVisible(false); }}>
-                                    <Text style={styles.link}>Portfolio</Text>
+                                    <Text style={styles.linkMob}>Portfolio</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('AboutMeScreen'); setDropMenuVisible(false); }}>
-                                    <Text style={styles.link}>About me</Text>
+                                    <Text style={styles.linkMob}>About me</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.button} onPress={() => { Linking.openURL("https://pfkziwaltkcevveqpglb.supabase.co/storage/v1/object/public/cv//ENG%20-%20CV%20-%2024.6.2025.pdf"); setDropMenuVisible(false); }}>
-                                    <Text style={styles.link}>Download CV</Text>
+                                    <Text style={styles.linkMob}>Download CV</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.iconHolderDropdown}>
                                 <TouchableOpacity onPress={() => Linking.openURL("https://www.linkedin.com/in/vedran-mari%C4%87-792033173/")} style={styles.icons}>
-                                    <Icon name="linkedin" size={30} color="#B9B4C7"/>
+                                    <Icon name="linkedin" size={35} color="#B9B4C7"/>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => Linking.openURL("https://github.com/vedran-maric")} style={styles.icons}>
-                                    <Icon name="github" size={30} color="#B9B4C7" />
+                                    <Icon name="github" size={35} color="#B9B4C7" />
                                 </TouchableOpacity>
                             </View>
                         </Animated.View>
@@ -131,6 +131,13 @@ const styles = StyleSheet.create({
         fontFamily: 'IBMPlexMono_400Regular',
         fontSize: 15,
     },
+    linkMob: {
+        fontWeight: 'regular',
+        color: '#B9B4C7',
+        fontFamily: 'IBMPlexMono_400Regular',
+        fontSize: 20,
+        marginTop: 10,
+    },
     icons: {
         tintColor: '#B9B4C7',
         opacity: 0.3,
@@ -144,7 +151,6 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
     burger: {
-        alignItems: "center",  
         marginTop: 30,
         borderRadius: 10,
         borderWidth: 2,
